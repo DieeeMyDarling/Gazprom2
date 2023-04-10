@@ -10,6 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNameApplication" Type="int" />
           <Property Name="idUser" Type="int" Nullable="false" />
           <Property Name="idApplicationStatus" Type="int" />
           <Property Name="idGasSupplyMethods" Type="int" />
@@ -51,10 +52,18 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNameApplication" Type="int" />
           <Property Name="idUser" Type="int" />
           <Property Name="idApplicationStatus" Type="int" />
           <Property Name="idGasEquipment" Type="int" />
           <Property Name="Adress" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="NameApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -122,6 +131,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ApplicationForGasConnection_NameApplication">
+          <End Role="NameApplication" Type="Self.NameApplication" Multiplicity="0..1" />
+          <End Role="ApplicationForGasConnection" Type="Self.ApplicationForGasConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameApplication">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ApplicationForGasConnection">
+              <PropertyRef Name="idNameApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ApplicationForGasConnection_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ApplicationForGasConnection" Type="Self.ApplicationForGasConnection" Multiplicity="*" />
@@ -182,6 +203,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MaintenanceOfGasEquipment_NameApplication">
+          <End Role="NameApplication" Type="Self.NameApplication" Multiplicity="0..1" />
+          <End Role="MaintenanceOfGasEquipment" Type="Self.MaintenanceOfGasEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameApplication">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MaintenanceOfGasEquipment">
+              <PropertyRef Name="idNameApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MaintenanceOfGasEquipment_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="MaintenanceOfGasEquipment" Type="Self.MaintenanceOfGasEquipment" Multiplicity="*" />
@@ -224,6 +257,7 @@
           <EntitySet Name="GasEquipment" EntityType="Self.GasEquipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GasSupplyMethods" EntityType="Self.GasSupplyMethods" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaintenanceOfGasEquipment" EntityType="Self.MaintenanceOfGasEquipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NameApplication" EntityType="Self.NameApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -240,6 +274,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ApplicationForGasConnection_GasSupplyMethods" Association="Self.FK_ApplicationForGasConnection_GasSupplyMethods">
             <End Role="GasSupplyMethods" EntitySet="GasSupplyMethods" />
+            <End Role="ApplicationForGasConnection" EntitySet="ApplicationForGasConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationForGasConnection_NameApplication" Association="Self.FK_ApplicationForGasConnection_NameApplication">
+            <End Role="NameApplication" EntitySet="NameApplication" />
             <End Role="ApplicationForGasConnection" EntitySet="ApplicationForGasConnection" />
           </AssociationSet>
           <AssociationSet Name="FK_ApplicationForGasConnection_User" Association="Self.FK_ApplicationForGasConnection_User">
@@ -260,6 +298,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceOfGasEquipment_GasEquipment" Association="Self.FK_MaintenanceOfGasEquipment_GasEquipment">
             <End Role="GasEquipment" EntitySet="GasEquipment" />
+            <End Role="MaintenanceOfGasEquipment" EntitySet="MaintenanceOfGasEquipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceOfGasEquipment_NameApplication" Association="Self.FK_MaintenanceOfGasEquipment_NameApplication">
+            <End Role="NameApplication" EntitySet="NameApplication" />
             <End Role="MaintenanceOfGasEquipment" EntitySet="MaintenanceOfGasEquipment" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceOfGasEquipment_User" Association="Self.FK_MaintenanceOfGasEquipment_User">
@@ -285,12 +327,14 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNameApplication" Type="Int32" />
           <Property Name="idUser" Type="Int32" Nullable="false" />
           <Property Name="idApplicationStatus" Type="Int32" />
           <Property Name="idGasSupplyMethods" Type="Int32" />
           <Property Name="Adress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ApplicationStatus" Relationship="Self.FK_ApplicationForGasConnection_ApplicationStatus" FromRole="ApplicationForGasConnection" ToRole="ApplicationStatus" />
           <NavigationProperty Name="GasSupplyMethods" Relationship="Self.FK_ApplicationForGasConnection_GasSupplyMethods" FromRole="ApplicationForGasConnection" ToRole="GasSupplyMethods" />
+          <NavigationProperty Name="NameApplication" Relationship="Self.FK_ApplicationForGasConnection_NameApplication" FromRole="ApplicationForGasConnection" ToRole="NameApplication" />
           <NavigationProperty Name="User" Relationship="Self.FK_ApplicationForGasConnection_User" FromRole="ApplicationForGasConnection" ToRole="User" />
         </EntityType>
         <EntityType Name="ApplicationStatus">
@@ -324,13 +368,24 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNameApplication" Type="Int32" />
           <Property Name="idUser" Type="Int32" />
           <Property Name="idApplicationStatus" Type="Int32" />
           <Property Name="idGasEquipment" Type="Int32" />
           <Property Name="Adress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ApplicationStatus" Relationship="Self.FK_MaintenanceOfGasEquipment_ApplicationStatus" FromRole="MaintenanceOfGasEquipment" ToRole="ApplicationStatus" />
           <NavigationProperty Name="GasEquipment" Relationship="Self.FK_MaintenanceOfGasEquipment_GasEquipment" FromRole="MaintenanceOfGasEquipment" ToRole="GasEquipment" />
+          <NavigationProperty Name="NameApplication" Relationship="Self.FK_MaintenanceOfGasEquipment_NameApplication" FromRole="MaintenanceOfGasEquipment" ToRole="NameApplication" />
           <NavigationProperty Name="User" Relationship="Self.FK_MaintenanceOfGasEquipment_User" FromRole="MaintenanceOfGasEquipment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="NameApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationForGasConnection" Relationship="Self.FK_ApplicationForGasConnection_NameApplication" FromRole="NameApplication" ToRole="ApplicationForGasConnection" />
+          <NavigationProperty Name="MaintenanceOfGasEquipment" Relationship="Self.FK_MaintenanceOfGasEquipment_NameApplication" FromRole="NameApplication" ToRole="MaintenanceOfGasEquipment" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -415,6 +470,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ApplicationForGasConnection_NameApplication">
+          <End Role="NameApplication" Type="Self.NameApplication" Multiplicity="0..1" />
+          <End Role="ApplicationForGasConnection" Type="Self.ApplicationForGasConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameApplication">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ApplicationForGasConnection">
+              <PropertyRef Name="idNameApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ApplicationForGasConnection_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ApplicationForGasConnection" Type="Self.ApplicationForGasConnection" Multiplicity="*" />
@@ -460,6 +527,18 @@
             </Principal>
             <Dependent Role="MaintenanceOfGasEquipment">
               <PropertyRef Name="idGasEquipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceOfGasEquipment_NameApplication">
+          <End Role="NameApplication" Type="Self.NameApplication" Multiplicity="0..1" />
+          <End Role="MaintenanceOfGasEquipment" Type="Self.MaintenanceOfGasEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NameApplication">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MaintenanceOfGasEquipment">
+              <PropertyRef Name="idNameApplication" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -517,6 +596,7 @@
           <EntitySet Name="GasEquipment" EntityType="Self.GasEquipment" />
           <EntitySet Name="GasSupplyMethods" EntityType="Self.GasSupplyMethods" />
           <EntitySet Name="MaintenanceOfGasEquipment" EntityType="Self.MaintenanceOfGasEquipment" />
+          <EntitySet Name="NameApplication" EntityType="Self.NameApplication" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
@@ -528,6 +608,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ApplicationForGasConnection_GasSupplyMethods" Association="Self.FK_ApplicationForGasConnection_GasSupplyMethods">
             <End Role="GasSupplyMethods" EntitySet="GasSupplyMethods" />
+            <End Role="ApplicationForGasConnection" EntitySet="ApplicationForGasConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationForGasConnection_NameApplication" Association="Self.FK_ApplicationForGasConnection_NameApplication">
+            <End Role="NameApplication" EntitySet="NameApplication" />
             <End Role="ApplicationForGasConnection" EntitySet="ApplicationForGasConnection" />
           </AssociationSet>
           <AssociationSet Name="FK_ApplicationForGasConnection_User" Association="Self.FK_ApplicationForGasConnection_User">
@@ -544,6 +628,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceOfGasEquipment_GasEquipment" Association="Self.FK_MaintenanceOfGasEquipment_GasEquipment">
             <End Role="GasEquipment" EntitySet="GasEquipment" />
+            <End Role="MaintenanceOfGasEquipment" EntitySet="MaintenanceOfGasEquipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceOfGasEquipment_NameApplication" Association="Self.FK_MaintenanceOfGasEquipment_NameApplication">
+            <End Role="NameApplication" EntitySet="NameApplication" />
             <End Role="MaintenanceOfGasEquipment" EntitySet="MaintenanceOfGasEquipment" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceOfGasEquipment_User" Association="Self.FK_MaintenanceOfGasEquipment_User">
@@ -573,6 +661,7 @@
             <EntityTypeMapping TypeName="Gazprom2Model.ApplicationForGasConnection">
               <MappingFragment StoreEntitySet="ApplicationForGasConnection">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idNameApplication" ColumnName="idNameApplication" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="idApplicationStatus" ColumnName="idApplicationStatus" />
                 <ScalarProperty Name="idGasSupplyMethods" ColumnName="idGasSupplyMethods" />
@@ -608,10 +697,19 @@
             <EntityTypeMapping TypeName="Gazprom2Model.MaintenanceOfGasEquipment">
               <MappingFragment StoreEntitySet="MaintenanceOfGasEquipment">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idNameApplication" ColumnName="idNameApplication" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="idApplicationStatus" ColumnName="idApplicationStatus" />
                 <ScalarProperty Name="idGasEquipment" ColumnName="idGasEquipment" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NameApplication">
+            <EntityTypeMapping TypeName="Gazprom2Model.NameApplication">
+              <MappingFragment StoreEntitySet="NameApplication">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -24,11 +24,13 @@ namespace Gazprom2.PageUsers
     public partial class PageClient : Page
     {
         User _user = new User();
+
         public PageClient(User user)
         {
+            
             _user = user;
             InitializeComponent();
-            GasConnection.ItemsSource = ODBConnectHelper.entObj.ApplicationForGasConnection.ToList();
+            GasConnection.ItemsSource = ODBConnectHelper.entObj.ApplicationForGasConnection.ToList().Where(x => x.idUser == _user.id).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +50,7 @@ namespace Gazprom2.PageUsers
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            FrameApp.frmObj.Navigate(new PageClient1(_user));
         }
 
         private void Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,6 +64,11 @@ namespace Gazprom2.PageUsers
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
         }

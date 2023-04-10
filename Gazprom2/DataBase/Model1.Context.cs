@@ -30,6 +30,7 @@ namespace Gazprom2.DataBase
         public virtual DbSet<GasEquipment> GasEquipment { get; set; }
         public virtual DbSet<GasSupplyMethods> GasSupplyMethods { get; set; }
         public virtual DbSet<MaintenanceOfGasEquipment> MaintenanceOfGasEquipment { get; set; }
+        public virtual DbSet<NameApplication> NameApplication { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }

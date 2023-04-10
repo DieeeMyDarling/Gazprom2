@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Gazprom2.PageUsers"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageClient">
+      Title="PageClient" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -46,10 +46,10 @@
                   Foreground="Black"
                   Background="WhiteSmoke">
             <DataGrid.Columns >
-                <DataGridTextColumn Width="*" Header="ФИО клиента" Binding="{Binding User.fullName}"  ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Название заявки" Binding="{Binding NameApplication.Name}"  ></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Способ подключения" Binding="{Binding GasSupplyMethods.Name}"  ></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Адрес" Binding="{Binding ApplicationStatud.status}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header ="Статус заявки" Binding="{Binding Adress}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Адрес" Binding="{Binding Adress}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header ="Статус заявки" Binding="{Binding ApplicationStatus.status}" ></DataGridTextColumn>
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gazprom2.PageMain;
 
+using Gazprom2.DataBase;
+
 namespace Gazprom2
 {
     /// <summary>
@@ -27,7 +29,7 @@ namespace Gazprom2
             InitializeComponent();
             FrameApp.frmObj = FrmMain;
             FrmMain.Navigate(new PageLogin());
-            ODBConnectHelper.entObj = new DataBase.Gazprom2Entities();
+            ODBConnectHelper.entObj = new Gazprom2Entities();
         }
 
         private void FrmMain_Navigated(object sender, NavigationEventArgs e)

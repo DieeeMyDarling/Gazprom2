@@ -42,7 +42,6 @@ namespace Gazprom2
                 x => x.Login == txtUser.Text && x.Password ==
                 txtPass.Password
                 );
-                var m = 0;
                 
 
                             if (workerObj != null)
@@ -66,7 +65,7 @@ namespace Gazprom2
                                 switch (userObj.idRole)
                                 {
                                     case 1:
-                                        FrameApp.frmObj.Navigate(new PageClient(userObj));
+                                        FrameApp.frmObj.Navigate(new PageClient1(userObj));
                                         MessageBox.Show("Здравствуйте пользователь " + userObj.fullName);
                                         break;
                                 }

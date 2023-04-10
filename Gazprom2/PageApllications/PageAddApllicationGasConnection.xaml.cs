@@ -29,6 +29,7 @@ namespace Gazprom2.PageApllications
         {
             
             InitializeComponent();
+            _user = user;
             DataContext = _applicationForGasConnection;
             CmbConnection.ItemsSource = ODBConnectHelper.entObj.GasSupplyMethods.ToList() ;
 
@@ -42,7 +43,8 @@ namespace Gazprom2.PageApllications
                 idUser = _user.id,
                 idGasSupplyMethods = (CmbConnection.SelectedItem as GasSupplyMethods).id,
                 Adress = AdressAdd.Text,
-                idApplicationStatus = 1
+                idApplicationStatus = 1,
+                idNameApplication = 1
             };
             ODBConnectHelper.entObj.ApplicationForGasConnection.Add(ap);
             ODBConnectHelper.entObj.SaveChanges();

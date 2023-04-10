@@ -15,6 +15,7 @@ namespace Gazprom2.DataBase
     public partial class ApplicationForGasConnection
     {
         public int id { get; set; }
+        public Nullable<int> idNameApplication { get; set; }
         public int idUser { get; set; }
         public Nullable<int> idApplicationStatus { get; set; }
         public Nullable<int> idGasSupplyMethods { get; set; }
@@ -22,6 +23,7 @@ namespace Gazprom2.DataBase
     
         public virtual ApplicationStatus ApplicationStatus { get; set; }
         public virtual GasSupplyMethods GasSupplyMethods { get; set; }
+        public virtual NameApplication NameApplication { get; set; }
         public virtual User User { get; set; }
     }
 }
